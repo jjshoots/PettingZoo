@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../genindex/" /><link rel="search" title="Search" href="../../../search/" /><link rel="next" title="Knights Archers Zombies (‘KAZ’)" href="../knights_archers_zombies/" /><link rel="prev" title="Butterfly" href="../" />
         <link rel="canonical" href="https://pettingzoo.farama.org/environments/butterfly/cooperative_pong.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.png"/><meta name="generator" content="sphinx-5.1.1, furo 2022.09.15"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/><meta name="generator" content="sphinx-5.2.2, furo 2022.09.15"/>
         <title>Cooperative Pong - PettingZoo Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
@@ -162,13 +162,20 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Basic</span></p>
+  <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../content/api/">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../content/basic_usage/">Basic Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/environment_creation/">Environment Creation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/environment_tests/">Testing Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../content/wrappers/">Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/tutorials/">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/">Core API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/parallel/">Parallel API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pz_wrappers/">PettingZoo Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supersuit_wrappers/">Supersuit Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils/">Utils</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Environments</span></p>
 <ul class="current">
@@ -283,7 +290,7 @@
         </div>
         <article role="main">
           <div class="theme-env-icon-container">
-              <img class="theme-env-icon" src="../../../_static/img/icons/Butterfly/CooperativePong.png">
+              <img class="theme-env-icon" src="../../../_static/img/icons/butterfly/cooperative_pong.png">
             </div>
           <section id="cooperative-pong">
 <h1>Cooperative Pong<a class="headerlink" href="#cooperative-pong" title="Permalink to this heading">#</a></h1>
@@ -341,7 +348,10 @@
 <figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="../../../_images/butterfly_cooperative_pong_aec.svg"><img alt="../../../_images/butterfly_cooperative_pong_aec.svg" src="../../../_images/butterfly_cooperative_pong_aec.svg" width="200px" /></a>
 </figure>
-<p>Cooperative pong is a game of simple pong, where the objective is to keep the ball in play for the longest time. The game is over when the ball goes out of bounds from either the left or right edge of the screen. There are two agents (paddles), one that moves along the left edge and the other that moves along the right edge of the screen. All collisions of the ball are elastic. The ball always starts moving in a random direction from the center of the screen with each reset. To make learning a little more challenging, the right paddle is tiered cake-shaped by default. The observation space of each agent is its own half of the screen. There are two possible actions for the agents (<em>move up/down</em>). If the ball stays within bounds, each agent receives a reward of <code class="docutils literal notranslate"><span class="pre">max_reward</span> <span class="pre">/</span> <span class="pre">max_cycles</span></code> (default 0.11) at each timestep. Otherwise, each agent receives a reward of <code class="docutils literal notranslate"><span class="pre">off_screen_penalty</span></code> (default -10) and the game ends.</p>
+<p>Cooperative pong is a game of simple pong, where the objective is to keep the ball in play for the longest time. The game is over when the ball goes out of bounds from either the left or right edge of the screen. There are two agents (paddles), one that moves along the left edge and the other that
+moves along the right edge of the screen. All collisions of the ball are elastic. The ball always starts moving in a random direction from the center of the screen with each reset. To make learning a little more challenging, the right paddle is tiered cake-shaped by default.
+The observation space of each agent is its own half of the screen. There are two possible actions for the agents (<em>move up/down</em>). If the ball stays within bounds, each agent receives a reward of <code class="docutils literal notranslate"><span class="pre">max_reward</span> <span class="pre">/</span> <span class="pre">max_cycles</span></code> (default 0.11) at each timestep. Otherwise, each agent receives a reward of
+<code class="docutils literal notranslate"><span class="pre">off_screen_penalty</span></code> (default -10) and the game ends.</p>
 <section id="manual-control">
 <h2>Manual Control<a class="headerlink" href="#manual-control" title="Permalink to this heading">#</a></h2>
 <p>Move the left paddle using the ‘W’ and ‘S’ keys. Move the right paddle using ‘UP’ and ‘DOWN’ arrow keys.</p>
@@ -379,15 +389,7 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../knights_archers_zombies/">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Knights Archers Zombies (‘KAZ’)</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
+          
           <a class="prev-page" href="../">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -451,6 +453,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

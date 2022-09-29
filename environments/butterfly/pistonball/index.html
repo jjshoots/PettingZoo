@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../genindex/" /><link rel="search" title="Search" href="../../../search/" /><link rel="next" title="Classic" href="../../classic/" /><link rel="prev" title="Knights Archers Zombies (‘KAZ’)" href="../knights_archers_zombies/" />
         <link rel="canonical" href="https://pettingzoo.farama.org/environments/butterfly/pistonball.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.png"/><meta name="generator" content="sphinx-5.1.1, furo 2022.09.15"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/><meta name="generator" content="sphinx-5.2.2, furo 2022.09.15"/>
         <title>Pistonball - PettingZoo Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
@@ -162,13 +162,20 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Basic</span></p>
+  <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../content/api/">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../content/basic_usage/">Basic Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/environment_creation/">Environment Creation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/environment_tests/">Testing Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../content/wrappers/">Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/tutorials/">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/">Core API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/parallel/">Parallel API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pz_wrappers/">PettingZoo Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supersuit_wrappers/">Supersuit Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils/">Utils</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Environments</span></p>
 <ul class="current">
@@ -283,7 +290,7 @@
         </div>
         <article role="main">
           <div class="theme-env-icon-container">
-              <img class="theme-env-icon" src="../../../_static/img/icons/Butterfly/Pistonball.png">
+              <img class="theme-env-icon" src="../../../_static/img/icons/butterfly/pistonball.png">
             </div>
           <section id="pistonball">
 <h1>Pistonball<a class="headerlink" href="#pistonball" title="Permalink to this heading">#</a></h1>
@@ -341,8 +348,13 @@
 <figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="../../../_images/butterfly_pistonball_aec.svg"><img alt="../../../_images/butterfly_pistonball_aec.svg" src="../../../_images/butterfly_pistonball_aec.svg" width="200px" /></a>
 </figure>
-<p>This is a simple physics based cooperative game where the goal is to move the ball to the left wall of the game border by activating the vertically moving pistons. Each piston agent’s observation is an RGB image of the two pistons (or the wall) next to the agent and the space above them. Every piston can be acted on in any given time. The action space in discrete mode is 0 to move down, 1 to stay still, and 2 to move up. In continuous mode, the value in the range [-1, 1] is proportional to the amount that the pistons are raised or lowered by. Continuous actions are scaled by a factor of 4, so that in both the discrete and continuous action space, the action 1 will move a piston 4 pixels up, and -1 will move pistons 4 pixels down.</p>
-<p>Accordingly, pistons must learn highly coordinated emergent behavior to achieve an optimal policy for the environment. Each agent gets a reward that is a combination of how much the ball moved left overall and how much the ball moved left if it was close to the piston (i.e. movement the piston contributed to). A piston is considered close to the ball if it is directly below any part of the ball. Balancing the ratio between these local and global rewards appears to be critical to learning this environment, and as such is an environment parameter. The local reward applied is 0.5 times the change in the ball’s x-position. Additionally, the global reward is change in x-position divided by the starting position, times 100, plus the <code class="docutils literal notranslate"><span class="pre">time_penalty</span></code> (default -0.1). For each piston, the reward is <code class="docutils literal notranslate"><span class="pre">local_ratio</span></code> * local_reward + (1-<code class="docutils literal notranslate"><span class="pre">local_ratio</span></code>) * global_reward. The local reward is applied to pistons surrounding the ball while the global reward is provided to all pistons.</p>
+<p>This is a simple physics based cooperative game where the goal is to move the ball to the left wall of the game border by activating the vertically moving pistons. Each piston agent’s observation is an RGB image of the two pistons (or the wall) next to the agent and the space above them. Every
+piston can be acted on in any given time. The action space in discrete mode is 0 to move down, 1 to stay still, and 2 to move up. In continuous mode, the value in the range [-1, 1] is proportional to the amount that the pistons are raised or lowered by. Continuous actions are scaled by a factor
+of 4, so that in both the discrete and continuous action space, the action 1 will move a piston 4 pixels up, and -1 will move pistons 4 pixels down.</p>
+<p>Accordingly, pistons must learn highly coordinated emergent behavior to achieve an optimal policy for the environment. Each agent gets a reward that is a combination of how much the ball moved left overall and how much the ball moved left if it was close to the piston (i.e. movement the piston
+contributed to). A piston is considered close to the ball if it is directly below any part of the ball. Balancing the ratio between these local and global rewards appears to be critical to learning this environment, and as such is an environment parameter. The local reward applied is 0.5 times
+the change in the ball’s x-position. Additionally, the global reward is change in x-position divided by the starting position, times 100, plus the <code class="docutils literal notranslate"><span class="pre">time_penalty</span></code> (default -0.1). For each piston, the reward is <code class="docutils literal notranslate"><span class="pre">local_ratio</span></code> * local_reward + (1-<code class="docutils literal notranslate"><span class="pre">local_ratio</span></code>) * global_reward. The local reward is
+applied to pistons surrounding the ball while the global reward is provided to all pistons.</p>
 <p>Pistonball uses the chipmunk physics engine, and are thus the physics are about as realistic as in the game Angry Birds.</p>
 <p>Keys <em>a</em> and <em>d</em> control which piston is selected to move (initially the rightmost piston is selected) and keys <em>w</em> and <em>s</em> move the piston in the vertical direction.</p>
 <section id="arguments">
@@ -390,17 +402,7 @@
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../knights_archers_zombies/">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">Knights Archers Zombies (‘KAZ’)</div>
-                
-              </div>
-            </a>
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -452,6 +454,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

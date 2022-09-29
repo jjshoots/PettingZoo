@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../genindex/" /><link rel="search" title="Search" href="../../../search/" /><link rel="next" title="Hanabi" href="../hanabi/" /><link rel="prev" title="Gin Rummy" href="../gin_rummy/" />
         <link rel="canonical" href="https://pettingzoo.farama.org/environments/classic/go.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.png"/><meta name="generator" content="sphinx-5.1.1, furo 2022.09.15"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/><meta name="generator" content="sphinx-5.2.2, furo 2022.09.15"/>
         <title>Go - PettingZoo Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
@@ -162,13 +162,20 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Basic</span></p>
+  <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../content/api/">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../content/basic_usage/">Basic Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/environment_creation/">Environment Creation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/environment_tests/">Testing Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../content/wrappers/">Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/tutorials/">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/">Core API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/parallel/">Parallel API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pz_wrappers/">PettingZoo Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supersuit_wrappers/">Supersuit Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils/">Utils</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Environments</span></p>
 <ul class="current">
@@ -283,7 +290,7 @@
         </div>
         <article role="main">
           <div class="theme-env-icon-container">
-              <img class="theme-env-icon" src="../../../_static/img/icons/Classic/Go.png">
+              <img class="theme-env-icon" src="../../../_static/img/icons/classic/go.png">
             </div>
           <section id="go">
 <h1>Go<a class="headerlink" href="#go" title="Permalink to this heading">#</a></h1>
@@ -332,7 +339,8 @@
 <figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="../../../_images/classic_go_aec.svg"><img alt="../../../_images/classic_go_aec.svg" src="../../../_images/classic_go_aec.svg" width="200px" /></a>
 </figure>
-<p>Go is a board game with 2 players, black and white. The black player starts by placing a black stone at an empty board intersection. The white player follows by placing a stone of their own, aiming to either surround more territory than their opponent or capture the opponent’s stones. The game ends if both players sequentially decide to pass.</p>
+<p>Go is a board game with 2 players, black and white. The black player starts by placing a black stone at an empty board intersection. The white player follows by placing a stone of their own, aiming to either surround more territory than their opponent or capture the opponent’s stones. The game
+ends if both players sequentially decide to pass.</p>
 <p>Our implementation is a wrapper for <a class="reference external" href="https://github.com/tensorflow/minigo">MiniGo</a>.</p>
 <section id="arguments">
 <h2>Arguments<a class="headerlink" href="#arguments" title="Permalink to this heading">#</a></h2>
@@ -346,7 +354,8 @@
 <section id="observation-space">
 <h2>Observation Space<a class="headerlink" href="#observation-space" title="Permalink to this heading">#</a></h2>
 <p>The observation is a dictionary which contains an <code class="docutils literal notranslate"><span class="pre">'observation'</span></code> element which is the usual RL observation described below, and an  <code class="docutils literal notranslate"><span class="pre">'action_mask'</span></code> which holds the legal moves, described in the Legal Actions Mask section.</p>
-<p>The main observation shape is a function of the board size <em>N</em> and has a shape of (N, N, 3). The first plane, (:, :, 0), represent the stones on the board for the current player while the second plane, (:, :, 1), encodes the stones of the opponent. The third plane, (:, :, 2), is all 1 if the current player is <code class="docutils literal notranslate"><span class="pre">black_0</span></code> or all 0 if the player is <code class="docutils literal notranslate"><span class="pre">white_0</span></code>. The state of the board is represented with the top left corner as (0, 0). For example, a (9, 9) board is</p>
+<p>The main observation shape is a function of the board size <em>N</em> and has a shape of (N, N, 3). The first plane, (:, :, 0), represent the stones on the board for the current player while the second plane, (:, :, 1), encodes the stones of the opponent. The third plane, (:, :, 2), is all 1 if the
+current player is <code class="docutils literal notranslate"><span class="pre">black_0</span></code> or all 0 if the player is <code class="docutils literal notranslate"><span class="pre">white_0</span></code>. The state of the board is represented with the top left corner as (0, 0). For example, a (9, 9) board is</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span>
  <span class="mi">0</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="mi">0</span>
  <span class="mi">1</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="mi">1</span>
@@ -383,7 +392,8 @@
 <p>While rendering, the board coordinate system is <a class="reference external" href="http://www.lysator.liu.se/~gunnar/gtp/">GTP</a>.</p>
 <section id="legal-actions-mask">
 <h3>Legal Actions Mask<a class="headerlink" href="#legal-actions-mask" title="Permalink to this heading">#</a></h3>
-<p>The legal moves available to the current agent are found in the <code class="docutils literal notranslate"><span class="pre">action_mask</span></code> element of the dictionary observation. The <code class="docutils literal notranslate"><span class="pre">action_mask</span></code> is a binary vector where each index of the vector represents whether the action is legal or not. The <code class="docutils literal notranslate"><span class="pre">action_mask</span></code> will be all zeros for any agent except the one whose turn it is. Taking an illegal move ends the game with a reward of -1 for the illegally moving agent and a reward of 0 for all other agents.</p>
+<p>The legal moves available to the current agent are found in the <code class="docutils literal notranslate"><span class="pre">action_mask</span></code> element of the dictionary observation. The <code class="docutils literal notranslate"><span class="pre">action_mask</span></code> is a binary vector where each index of the vector represents whether the action is legal or not. The <code class="docutils literal notranslate"><span class="pre">action_mask</span></code> will be all zeros for any agent except the one
+whose turn it is. Taking an illegal move ends the game with a reward of -1 for the illegally moving agent and a reward of 0 for all other agents.</p>
 </section>
 </section>
 <section id="action-space">
@@ -415,7 +425,8 @@
 </tbody>
 </table>
 </div>
-<p>For example, you would use action <code class="docutils literal notranslate"><span class="pre">4</span></code> to place a stone on the board at the (0,3) location or action <code class="docutils literal notranslate"><span class="pre">N^2</span></code> to pass. You can transform a non-pass action <code class="docutils literal notranslate"><span class="pre">a</span></code> back into its 2D (x,y) coordinate by computing <code class="docutils literal notranslate"><span class="pre">(a//N,</span> <span class="pre">a%N)</span></code> The total action space is <img src="https://render.githubusercontent.com/render/math?math=N^2 %2B 1">.</p>
+<p>For example, you would use action <code class="docutils literal notranslate"><span class="pre">4</span></code> to place a stone on the board at the (0,3) location or action <code class="docutils literal notranslate"><span class="pre">N^2</span></code> to pass. You can transform a non-pass action <code class="docutils literal notranslate"><span class="pre">a</span></code> back into its 2D (x,y) coordinate by computing <code class="docutils literal notranslate"><span class="pre">(a//N,</span> <span class="pre">a%N)</span></code> The total action space is
+<img src="https://render.githubusercontent.com/render/math?math=N^2 %2B 1">.</p>
 </section>
 <section id="rewards">
 <h2>Rewards<a class="headerlink" href="#rewards" title="Permalink to this heading">#</a></h2>
@@ -529,6 +540,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

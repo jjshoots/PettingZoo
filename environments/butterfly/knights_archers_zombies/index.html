@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../genindex/" /><link rel="search" title="Search" href="../../../search/" /><link rel="next" title="Pistonball" href="../pistonball/" /><link rel="prev" title="Cooperative Pong" href="../cooperative_pong/" />
         <link rel="canonical" href="https://pettingzoo.farama.org/environments/butterfly/knights_archers_zombies.html" />
 
-    <link rel="shortcut icon" href="../../../_static/favicon.png"/><meta name="generator" content="sphinx-5.1.1, furo 2022.09.15"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/><meta name="generator" content="sphinx-5.2.2, furo 2022.09.15"/>
         <title>Knights Archers Zombies (‘KAZ’) - PettingZoo Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
@@ -162,13 +162,20 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Basic</span></p>
+  <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../content/api/">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../content/basic_usage/">Basic Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/environment_creation/">Environment Creation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/environment_tests/">Testing Environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../content/wrappers/">Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../content/tutorials/">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/">Core API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/parallel/">Parallel API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/pz_wrappers/">PettingZoo Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supersuit_wrappers/">Supersuit Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils/">Utils</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Environments</span></p>
 <ul class="current">
@@ -283,7 +290,7 @@
         </div>
         <article role="main">
           <div class="theme-env-icon-container">
-              <img class="theme-env-icon" src="../../../_static/img/icons/Butterfly/KnightsArchersZombies('KAZ').png">
+              <img class="theme-env-icon" src="../../../_static/img/icons/butterfly/knights_archers_zombies.png">
             </div>
           <section id="knights-archers-zombies-kaz">
 <h1>Knights Archers Zombies (‘KAZ’)<a class="headerlink" href="#knights-archers-zombies-kaz" title="Permalink to this heading">#</a></h1>
@@ -341,7 +348,9 @@
 <figure class="align-default" id="id1">
 <a class="reference internal image-reference" href="../../../_images/butterfly_knights_archers_zombies_aec.svg"><img alt="../../../_images/butterfly_knights_archers_zombies_aec.svg" src="../../../_images/butterfly_knights_archers_zombies_aec.svg" width="200px" /></a>
 </figure>
-<p>Zombies walk from the top border of the screen down to the bottom border in unpredictable paths. The agents you control are knights and archers (default 2 knights and 2 archers) that are initially positioned at the bottom border of the screen. Each agent can rotate clockwise or counter-clockwise and move forward or backward. Each agent can also attack to kill zombies. When a knight attacks, it swings a mace in an arc in front of its current heading direction. When an archer attacks, it fires an arrow in a straight line in the direction of the archer’s heading. The game ends when all agents die (collide with a zombie) or a zombie reaches the bottom screen border. A knight is rewarded 1 point when its mace hits and kills a zombie. An archer is rewarded 1 point when one of their arrows hits and kills a zombie.
+<p>Zombies walk from the top border of the screen down to the bottom border in unpredictable paths. The agents you control are knights and archers (default 2 knights and 2 archers) that are initially positioned at the bottom border of the screen. Each agent can rotate clockwise or counter-clockwise
+and move forward or backward. Each agent can also attack to kill zombies. When a knight attacks, it swings a mace in an arc in front of its current heading direction. When an archer attacks, it fires an arrow in a straight line in the direction of the archer’s heading. The game ends when all
+agents die (collide with a zombie) or a zombie reaches the bottom screen border. A knight is rewarded 1 point when its mace hits and kills a zombie. An archer is rewarded 1 point when one of their arrows hits and kills a zombie.
 There are two possible observation types for this environment, vectorized and image-based.</p>
 <section id="vectorized-default">
 <h2>Vectorized (Default)<a class="headerlink" href="#vectorized-default" title="Permalink to this heading">#</a></h2>
@@ -412,7 +421,8 @@ Note that for positions, [0, 0] is the top left corner of the image. Down is pos
 <p>If there is no entity there, the whole typemask (as well as the whole state vector) will be 0.</p>
 <p>As a result, setting <code class="docutils literal notranslate"><span class="pre">use_typemask=True</span></code> results in the observation being a (N+1)x11 vector.</p>
 <p><strong>Transformers</strong> (Experimental)</p>
-<p>There is an option to also pass <code class="docutils literal notranslate"><span class="pre">transformer=True</span></code> as a kwarg to the environment. This just removes all non-existent entities from the observation and state vectors. Note that this is <strong>still experimental</strong> as the state and observation size are no longer constant. In particular, <code class="docutils literal notranslate"><span class="pre">N</span></code> is now a variable number.</p>
+<p>There is an option to also pass <code class="docutils literal notranslate"><span class="pre">transformer=True</span></code> as a kwarg to the environment. This just removes all non-existent entities from the observation and state vectors. Note that this is <strong>still experimental</strong> as the state and observation size are no longer constant. In particular, <code class="docutils literal notranslate"><span class="pre">N</span></code> is now a
+variable number.</p>
 </section>
 <section id="image-based">
 <h2>Image-based<a class="headerlink" href="#image-based" title="Permalink to this heading">#</a></h2>
@@ -554,6 +564,7 @@ Press ‘M’ key to spawn a new knight.</p>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>
