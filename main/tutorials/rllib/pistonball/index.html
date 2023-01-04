@@ -377,7 +377,7 @@ Pillow==9.3.0
 torch==1.13.1
 SuperSuit==3.6.0
 ray[rllib]==2
-pettingzoo==1.22.0
+pettingzoo==1.22.3
 </pre></div>
 </div>
 </section>
@@ -515,9 +515,9 @@ pettingzoo==1.22.0
 <span class="kn">from</span> <span class="nn">ray.rllib.env.wrappers.pettingzoo_env</span> <span class="kn">import</span> <span class="n">PettingZooEnv</span>
 <span class="kn">from</span> <span class="nn">ray.rllib.models</span> <span class="kn">import</span> <span class="n">ModelCatalog</span>
 <span class="kn">from</span> <span class="nn">ray.tune.registry</span> <span class="kn">import</span> <span class="n">register_env</span>
+<span class="kn">from</span> <span class="nn">tutorials.Ray.rllib_pistonball</span> <span class="kn">import</span> <span class="n">CNNModelV2</span>
 
 <span class="kn">from</span> <span class="nn">pettingzoo.butterfly</span> <span class="kn">import</span> <span class="n">pistonball_v6</span>
-<span class="kn">from</span> <span class="nn">tutorials.Ray.rllib_pistonball</span> <span class="kn">import</span> <span class="n">CNNModelV2</span>
 
 <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
     <span class="s2">&quot;There are currently bugs in this tutorial, we will fix them soon.&quot;</span>
