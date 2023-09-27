@@ -400,7 +400,7 @@
 
 <span class="sd">This environment is part of the &lt;a href=&#39;..&#39;&gt;classic environments&lt;/a&gt;. Please read that page first for general information.</span>
 
-<span class="sd">| Import             | `from pettingzoo.classic import texas_holdem_no_limit_v6` |</span>
+<span class="sd">| Import             | `from pettingzoo.classic import texas_holdem_no_limit_v7` |</span>
 <span class="sd">|--------------------|-----------------------------------------------------------|</span>
 <span class="sd">| Actions            | Discrete                                                  |</span>
 <span class="sd">| Parallel API       | Yes                                                       |</span>
@@ -420,7 +420,7 @@
 <span class="sd">### Arguments</span>
 
 <span class="sd">``` python</span>
-<span class="sd">texas_holdem_no_limit_v6.env(num_players=2)</span>
+<span class="sd">texas_holdem_no_limit_v7.env(num_players=2)</span>
 <span class="sd">```</span>
 
 <span class="sd">`num_players`: Sets the number of players in the game. Minimum is 2.</span>
@@ -470,6 +470,7 @@
 
 <span class="sd">### Version History</span>
 
+<span class="sd">* v7: Added multiround option (1.x)</span>
 <span class="sd">* v6: Upgrade to RLCard 1.0.5, fixes to the action space as ACPC (1.12.0)</span>
 <span class="sd">* v5: Upgrade to RLCard 1.0.4, fixes to rewards with greater than 2 players (1.11.1)</span>
 <span class="sd">* v4: Upgrade to RLCard 1.0.3 (1.11.0)</span>
@@ -514,10 +515,23 @@
 <div class="viewcode-block" id="env">
 <a class="viewcode-back" href="../../../../../environments/classic/texas_holdem_no_limit/#pettingzoo.classic.rlcard_envs.texas_holdem_no_limit.env">[docs]</a>
 <span class="k">def</span> <span class="nf">env</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># optionally chained games with number of chips</span>
+    <span class="n">num_rounds</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;num_rounds&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">num_chips</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;num_chips&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">bool</span><span class="p">(</span><span class="n">num_rounds</span><span class="p">)</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">(</span>
+        <span class="n">num_chips</span>
+    <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;If `num_rounds` is used, `num_chips` must also be declared, got </span><span class="si">{</span><span class="n">num_rounds</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">num_chips</span><span class="si">=}</span><span class="s2">&quot;</span>
+
     <span class="n">env</span> <span class="o">=</span> <span class="n">raw_env</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">wrappers</span><span class="o">.</span><span class="n">TerminateIllegalWrapper</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">illegal_reward</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">wrappers</span><span class="o">.</span><span class="n">AssertOutOfBoundsWrapper</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">wrappers</span><span class="o">.</span><span class="n">OrderEnforcingWrapper</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">num_rounds</span><span class="p">:</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">wrappers</span><span class="o">.</span><span class="n">MultiEpisodeEnv</span><span class="p">(</span>
+            <span class="n">env</span><span class="p">,</span> <span class="n">num_episodes</span><span class="o">=</span><span class="n">num_rounds</span><span class="p">,</span> <span class="n">starting_utility</span><span class="o">=</span><span class="n">num_chips</span>
+        <span class="p">)</span>
+
     <span class="k">return</span> <span class="n">env</span></div>
 
 
@@ -527,7 +541,7 @@
 <span class="k">class</span> <span class="nc">raw_env</span><span class="p">(</span><span class="n">RLCardBase</span><span class="p">,</span> <span class="n">EzPickle</span><span class="p">):</span>
     <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;render_modes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;rgb_array&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;texas_holdem_no_limit_v6&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;texas_holdem_no_limit_v7&quot;</span><span class="p">,</span>
         <span class="s2">&quot;is_parallelizable&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
         <span class="s2">&quot;render_fps&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">}</span>
